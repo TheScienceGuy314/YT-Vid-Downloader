@@ -15,7 +15,6 @@ root.title("YubTub Video Downloader")
 
 # This creates a label widget with the text "YubTub Video Downloading Mechanism" in the center of the root window.
 Label(root, text="YubTub Video Downloading Mechanism", font="arial 20 bold").place(anchor=CENTER, relx=0.5, rely=0.3)
-
 # This creates a label widget with the text "Insert Link Below" in the center of the root window.
 label1 = Label(root, text="Insert Link Below", font="arial 15 bold")
 label1.place(anchor=CENTER, relx=0.5, rely=0.4)
@@ -53,8 +52,9 @@ def videoFormat():
         threading2()
 
 
-# This defines a function that disables the button1 and subLink widgets, and changes the text in label1 to
-# "DOWNLOADING". It also has a loop that repeats 4 times and adds a dot after "DOWNLOADING" each time.
+# This defines a function that disables the button1 and subLink widgets, and changes the text in label1 to 
+# "DOWNLOADING" plus whatever the title of the video is. It also has a loop that repeats 4 times and adds a dot after
+# "DOWNLOADING" each time it loops. 
 def progressBar():
     button1["state"] = DISABLED
     subLink["state"] = DISABLED
@@ -62,10 +62,12 @@ def progressBar():
     while incomplete:
         for repeats in range(4):
             dots = repeats * "."
-            label1["text"] = "DOWNLOADING" + dots
-            sleep(1)
+            title = url.title
+            label1["text"] = "DOWNLOADING " + title + dots
             if not incomplete:
                 break
+            sleep(1)
+        label1["text"] = "Download Complete"
 
 
 # This defines a function that takes in a name. It then creates a list of illegal characters and another list with
@@ -111,16 +113,16 @@ def Downloader_Inator(isDASH):
                 url.streams.get_highest_resolution().download(output_path=r"C:\Users\School\Downloads")
                 progressive = True
             finally:
-                import os
                 if not progressive:
+                    from os import path, makedirs, replace
                     newDir = "C:\\Users\\School\\Downloads\\" + allowedFileChars(url.title)
-                    if not os.path.exists(newDir):
-                        os.makedirs(newDir)
+                    if not path.exists(newDir):
+                        makedirs(newDir)
 
-            os.replace("C:\\Users\\School\\Downloads\\Video.mp4",
-                       "C:\\Users\\School\\Downloads\\" + allowedFileChars(url.title) + "\\Video.mp4")
-            os.replace("C:\\Users\\School\\Downloads\\Audio.mp3",
-                       "C:\\Users\\School\\Downloads\\" + allowedFileChars(url.title) + "\\Audio.mp3")
+                    replace("C:\\Users\\School\\Downloads\\Video.mp4",
+                            "C:\\Users\\School\\Downloads\\" + allowedFileChars(url.title) + "\\Video.mp4")
+                    replace("C:\\Users\\School\\Downloads\\Audio.mp3",
+                            "C:\\Users\\School\\Downloads\\" + allowedFileChars(url.title) + "\\Audio.mp3")
         else:
             # This downloads the video if isDASH is False.
             url.streams.get_highest_resolution().download(output_path=r"C:\Users\School\Downloads")
@@ -136,11 +138,9 @@ def Downloader_Inator(isDASH):
         label1["text"] = "Insert Link Below"
 
 
-# This creates a button widget that runs the threading4 function when clicked.
-button1 = Button(root, text="Download Video & Audio", font="arial 15 bold", padx=2, command=videoFormat)
+# This creates a button widget that runs the videoFormat function when clicked.
+button1 = Button(root, text="Download Video", font="arial 15 bold", padx=2, command=videoFormat)
 button1.place(anchor=CENTER, relx=0.5, rely=0.575)
-
-button2 = Button(root, text="Download Video", font="arial 15 bold", padx=2)
 
 # This creates radio buttons that the user can select to choose between Dash and Progressive. Progressive is selected
 # by default.
@@ -152,5 +152,4 @@ radioButton2.place(relx=0.425, rely=0.7)
 
 # This creates a button widget that destroys the root window when clicked.
 Button(root, text="Exit Program", command=root.destroy, font="arial 10 bold").place(anchor=CENTER, relx=0.5, rely=0.825)
-
 root.mainloop()
