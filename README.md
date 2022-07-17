@@ -10,4 +10,4 @@ Yes, YouTube misspelling as YubTub is intentional.
 
 Only for Windows currently.
 
-Alternatively, you can download Python and run the source file (YouTube_Video_Downloader.pyw).
+However, for OSX and Linux, you can download Python and run the source file (YouTube_Video_Downloader.pyw).
