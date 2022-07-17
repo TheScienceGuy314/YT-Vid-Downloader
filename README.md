@@ -8,6 +8,6 @@ The application doesn't require Python to run, and doesn't need further installa
 
 Yes, YouTube misspelling as YubTub is intentional.
 
-Only for Windows currently. OSX and Linux coming soon (Hopefully).
+Only for Windows currently.
 
 Alternatively, you can download Python and run the source file (YouTube_Video_Downloader.pyw).
